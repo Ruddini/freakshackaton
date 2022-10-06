@@ -86,12 +86,17 @@ class TeamsBot extends TeamsActivityHandler {
       await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
       return { statusCode: 200 };
     }
-    if (invokeValue.action.verb === "submit") {
+    else if (invokeValue.action.verb === "submit") {
       const card = cardTools.AdaptiveCards.declare(rawSubmit).render();
       await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
       return { statusCode: 200 };
     }
-    if (invokeValue.action.verb === "main") {
+    else if (invokeValue.action.verb === "main") {
+      const card = cardTools.AdaptiveCards.declare(rawMainCard).render();
+      await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
+      return { statusCode: 200 };
+    }
+    else {
       const card = cardTools.AdaptiveCards.declare(rawMainCard).render();
       await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
       return { statusCode: 200 };
