@@ -5,6 +5,8 @@ const rawWelcomeCard = require("./adaptiveCards/welcome.json");
 const rawLearnCard = require("./adaptiveCards/learn.json");
 const cardTools = require("@microsoft/adaptivecards-tools");
 const rawMainCard = require("./adaptiveCards/main.json");
+const rawMyCar = require("./adaptiveCards/mycar.json");
+const rawSubmit = require("./adaptiveCards/submit.json");
 
 
 class TeamsBot extends TeamsActivityHandler {
@@ -73,12 +75,18 @@ class TeamsBot extends TeamsActivityHandler {
   async onAdaptiveCardInvoke(context, invokeValue) {
     // The verb "userlike" is sent from the Adaptive Card defined in adaptiveCards/learn.json
     if (invokeValue.action.verb === "mycar") {
-      const card = cardTools.AdaptiveCards.declare(rawLearnCard).render(this.likeCountObj);
-      await context.updateActivity({
-        type: "message",
-        id: context.activity.replyToId,
-        attachments: [CardFactory.adaptiveCard(card)],
-      });
+      const card = cardTools.AdaptiveCards.declare(rawMyCar).render();
+      await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
+      return { statusCode: 200 };
+    }
+    if (invokeValue.action.verb === "submit") {
+      const card = cardTools.AdaptiveCards.declare(rawSubmit).render();
+      await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
+      return { statusCode: 200 };
+    }
+    if (invokeValue.action.verb === "main") {
+      const card = cardTools.AdaptiveCards.declare(rawMainCard).render();
+      await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
       return { statusCode: 200 };
     }
   }
