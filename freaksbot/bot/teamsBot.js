@@ -26,6 +26,8 @@ class TeamsBot extends TeamsActivityHandler {
       // Trigger command by IM text
       switch (txt) {
         case "?": {
+          var test = await axios.get("http://bot-backend-sesi.azurewebsites.net/mycar/");
+          console.log(test.data);
           const card = cardTools.AdaptiveCards.declareWithoutData(rawMainCard).render();
           await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
           break;
