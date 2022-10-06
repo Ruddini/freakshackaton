@@ -79,16 +79,26 @@ class TeamsBot extends TeamsActivityHandler {
   async onAdaptiveCardInvoke(context, invokeValue) {
     // The verb "userlike" is sent from the Adaptive Card defined in adaptiveCards/learn.json
     if (invokeValue.action.verb === "mycar") {
+      var test = await axios.get("http://bot-backend-sesi.azurewebsites.net/mycar/");
+      console.log(test.data);
+      rawMyCar.actions[0].title=test.data[0];
+      rawMyCar.actions[1].title=test.data[1];
+      rawMyCar.actions[2].title=test.data[2];      
       const card = cardTools.AdaptiveCards.declare(rawMyCar).render();
       await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
       return { statusCode: 200 };
     }
-    if (invokeValue.action.verb === "submit") {
+    else if (invokeValue.action.verb === "submit") {
       const card = cardTools.AdaptiveCards.declare(rawSubmit).render();
       await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
       return { statusCode: 200 };
     }
-    if (invokeValue.action.verb === "main") {
+    else if (invokeValue.action.verb === "main") {
+      const card = cardTools.AdaptiveCards.declare(rawMainCard).render();
+      await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
+      return { statusCode: 200 };
+    }
+    else {
       const card = cardTools.AdaptiveCards.declare(rawMainCard).render();
       await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
       return { statusCode: 200 };
