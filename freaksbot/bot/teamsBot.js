@@ -107,7 +107,13 @@ class TeamsBot extends TeamsActivityHandler {
       var toExplain = invokeValue.action.data.acAcronym
       var explained = await axios.get(`http://bot-backend-sesi.azurewebsites.net/shortcut/${toExplain}/`);
       rawExplained.body[0].text = toExplain
-      rawExplained.body[1].text = explained.data
+      if (explained.data[0] != null) {
+        rawExplained.body[1].text = explained.data[0]
+        rawExplained.actions[0].url = explained.data[1]
+      } else {
+        rawExplained.body[1].text = "Unfortunately we don't know this yet, we noted your request and will try to come up with an explanation for it :)"
+        rawExplained.actions[0].url = explained.data[1]
+      }
       const card = cardTools.AdaptiveCards.declare(rawExplained).render();
       await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
       return { statusCode: 200 };
