@@ -5,7 +5,12 @@ const rawWelcomeCard = require("./adaptiveCards/welcome.json");
 const rawLearnCard = require("./adaptiveCards/learn.json");
 const cardTools = require("@microsoft/adaptivecards-tools");
 const rawMainCard = require("./adaptiveCards/main.json");
+<<<<<<< HEAD
 const calendarCard = require("./adaptiveCards/calendar.json")
+=======
+const rawMyCar = require("./adaptiveCards/mycar.json");
+const rawSubmit = require("./adaptiveCards/submit.json");
+>>>>>>> 43ae4fba9fe04ab8150cbf789a952c824087347f
 
 
 class TeamsBot extends TeamsActivityHandler {
@@ -76,12 +81,28 @@ class TeamsBot extends TeamsActivityHandler {
   async onAdaptiveCardInvoke(context, invokeValue) {
     // The verb "userlike" is sent from the Adaptive Card defined in adaptiveCards/learn.json
     if (invokeValue.action.verb === "mycar") {
-      const card = cardTools.AdaptiveCards.declare(rawLearnCard).render(this.likeCountObj);
-      await context.updateActivity({
-        type: "message",
-        id: context.activity.replyToId,
-        attachments: [CardFactory.adaptiveCard(card)],
-      });
+      var test = await axios.get("http://bot-backend-sesi.azurewebsites.net/mycar/");
+      console.log(test.data);
+      rawMyCar.actions[0].title=test.data[0];
+      rawMyCar.actions[1].title=test.data[1];
+      rawMyCar.actions[2].title=test.data[2];      
+      const card = cardTools.AdaptiveCards.declare(rawMyCar).render();
+      await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
+      return { statusCode: 200 };
+    }
+    else if (invokeValue.action.verb === "submit") {
+      const card = cardTools.AdaptiveCards.declare(rawSubmit).render();
+      await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
+      return { statusCode: 200 };
+    }
+    else if (invokeValue.action.verb === "main") {
+      const card = cardTools.AdaptiveCards.declare(rawMainCard).render();
+      await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
+      return { statusCode: 200 };
+    }
+    else {
+      const card = cardTools.AdaptiveCards.declare(rawMainCard).render();
+      await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
       return { statusCode: 200 };
     }
   }
