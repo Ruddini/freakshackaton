@@ -10,7 +10,8 @@
         {
             "type": "TextBlock",
             "text": "Name and Surname:",
-            "wrap": true
+            "wrap": true,
+            "id": "name_surname"
         },
         {
             "type": "Input.Text",
@@ -19,7 +20,8 @@
         {
             "type": "TextBlock",
             "text": "Time:",
-            "wrap": true
+            "wrap": true,
+            "id" : "time"
         },
         {
             "type": "Input.Time"
