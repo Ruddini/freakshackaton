@@ -11,19 +11,19 @@
   "actions": [
     {
       "type": "Action.Execute",
-      "title": "Katowice ul. Zabrska 17 (+2): 98 free",
+      "title": "Katowice ul. Zabrska 17 (+2): 0 free",
       "verb": "submit",
       "fallback": "Action.Submit"
     },
     {
       "type": "Action.Execute",
-      "title": "Katowice ul. Zabrska 19 (-1): 38 free",
+      "title": "Katowice ul. Zabrska 19 (-1): 0 free",
       "verb": "submit",
       "fallback": "Action.Submit"
     },
     {
       "type": "Action.Execute",
-      "title": "Katowice ul. Gliwicka: 151 free",
+      "title": "Katowice ul. Gliwicka: 0 free",
       "verb": "submit",
       "fallback": "Action.Submit"
     }
