@@ -7,6 +7,9 @@ const cardTools = require("@microsoft/adaptivecards-tools");
 const rawMainCard = require("./adaptiveCards/main.json");
 const rawMyCar = require("./adaptiveCards/mycar.json");
 const rawSubmit = require("./adaptiveCards/submit.json");
+const rawMyDeskLoc = require("./adaptiveCards/mydesk_loc.json");
+const rawMyDeskNo = require("./adaptiveCards/mydesk_num.json");
+const rawMyDeskDate = require("./adaptiveCards/mydesk_date.json");
 const rawExplainAcronym = require("./adaptiveCards/explainAcronym.json");
 const rawExplained = require("./adaptiveCards/explained.json");
 
@@ -98,6 +101,11 @@ class TeamsBot extends TeamsActivityHandler {
       await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
       return { statusCode: 200 };
     }
+    else if (invokeValue.action.verb === "mydesk_date") {
+      const card = cardTools.AdaptiveCards.declare(rawMyDeskLoc).render();
+      await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
+      return { statusCode: 200 };
+    }
     else if (invokeValue.action.verb === "acronyms") {
       const card = cardTools.AdaptiveCards.declare(rawExplainAcronym).render();
       await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
@@ -109,6 +117,12 @@ class TeamsBot extends TeamsActivityHandler {
       rawExplained.body[0].text = toExplain
       rawExplained.body[1].text = explained.data
       const card = cardTools.AdaptiveCards.declare(rawExplained).render();
+      await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
+      return { statusCode: 200 };
+    }
+    
+    else if (invokeValue.action.verb === "mydesk_location") {
+      const card = cardTools.AdaptiveCards.declare(rawMyDeskNo).render();
       await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
       return { statusCode: 200 };
     }
