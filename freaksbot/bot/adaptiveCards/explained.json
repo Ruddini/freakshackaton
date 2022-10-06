@@ -24,6 +24,11 @@
     ],
     "actions": [
         {
+            "type": "Action.OpenUrl",
+            "title": "Checkout in forge",
+            "url": ""
+        },
+        {
             "type": "Action.Execute",
             "title": "Return to menu",
             "verb": "main",

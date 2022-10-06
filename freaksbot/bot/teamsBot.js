@@ -118,7 +118,17 @@ class TeamsBot extends TeamsActivityHandler {
       return { statusCode: 200 };
     }
     else if (invokeValue.action.verb === "mydesk_date") {
+      const card = cardTools.AdaptiveCards.declare(rawMyDeskDate).render();
+      await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
+      return { statusCode: 200 };
+    }
+    else if (invokeValue.action.verb === "mydesk_location") {
       const card = cardTools.AdaptiveCards.declare(rawMyDeskLoc).render();
+      await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
+      return { statusCode: 200 };
+    }
+    else if (invokeValue.action.verb === "mydesk_num") {
+      const card = cardTools.AdaptiveCards.declare(rawMyDeskNo).render();
       await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
       return { statusCode: 200 };
     }
@@ -130,9 +140,20 @@ class TeamsBot extends TeamsActivityHandler {
     else if (invokeValue.action.verb === "explain") {
       var toExplain = invokeValue.action.data.acAcronym
       var explained = await axios.get(`http://bot-backend-sesi.azurewebsites.net/shortcut/${toExplain}/`);
+<<<<<<< HEAD
       rawExplained.body[0].text = toExplain;
       rawExplained.body[1].text = explained.data[0];
       rawExplained.body[2].text = explained.data[1];
+=======
+      rawExplained.body[0].text = toExplain
+      if (explained.data[0] != null) {
+        rawExplained.body[1].text = explained.data[0]
+        rawExplained.actions[0].url = explained.data[1]
+      } else {
+        rawExplained.body[1].text = "Unfortunately we don't know this yet, we noted your request and will try to come up with an explanation for it :)"
+        rawExplained.actions[0].url = explained.data[1]
+      }
+>>>>>>> 264e0a74ca0839b506f6719703a761ee7eaf4142
       const card = cardTools.AdaptiveCards.declare(rawExplained).render();
       await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
       return { statusCode: 200 };

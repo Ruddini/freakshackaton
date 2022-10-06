@@ -13,7 +13,11 @@
       "placeholder": "Select desk: [floor] [desk number]"
     }
   ],
+<<<<<<< HEAD
   "actions":[
+=======
+  "actions": [
+>>>>>>> 264e0a74ca0839b506f6719703a761ee7eaf4142
     {
       "type": "Action.Execute",
       "title": "Send Request",
