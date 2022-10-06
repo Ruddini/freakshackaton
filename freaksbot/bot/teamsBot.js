@@ -4,6 +4,8 @@ const { TeamsActivityHandler, CardFactory, TurnContext } = require("botbuilder")
 const rawWelcomeCard = require("./adaptiveCards/welcome.json");
 const rawLearnCard = require("./adaptiveCards/learn.json");
 const cardTools = require("@microsoft/adaptivecards-tools");
+const rawMainCard = require("./adaptiveCards/main.json");
+
 
 class TeamsBot extends TeamsActivityHandler {
   constructor() {
@@ -23,6 +25,12 @@ class TeamsBot extends TeamsActivityHandler {
 
       // Trigger command by IM text
       switch (txt) {
+        case "?": {
+          const card = cardTools.AdaptiveCards.declareWithoutData(rawMainCard).render();
+          await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
+          break;
+        }
+
         case "welcome": {
           const card = cardTools.AdaptiveCards.declareWithoutData(rawWelcomeCard).render();
           await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
@@ -64,8 +72,7 @@ class TeamsBot extends TeamsActivityHandler {
   // method handles that event.
   async onAdaptiveCardInvoke(context, invokeValue) {
     // The verb "userlike" is sent from the Adaptive Card defined in adaptiveCards/learn.json
-    if (invokeValue.action.verb === "userlike") {
-      this.likeCountObj.likeCount++;
+    if (invokeValue.action.verb === "mycar") {
       const card = cardTools.AdaptiveCards.declare(rawLearnCard).render(this.likeCountObj);
       await context.updateActivity({
         type: "message",
