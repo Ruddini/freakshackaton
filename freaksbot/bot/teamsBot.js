@@ -7,6 +7,8 @@ const cardTools = require("@microsoft/adaptivecards-tools");
 const rawMainCard = require("./adaptiveCards/main.json");
 const rawMyCar = require("./adaptiveCards/mycar.json");
 const rawSubmit = require("./adaptiveCards/submit.json");
+const rawExplainAcronym = require("./adaptiveCards/explainAcronym.json");
+const rawExplained = require("./adaptiveCards/explained.json");
 
 
 class TeamsBot extends TeamsActivityHandler {
@@ -88,6 +90,20 @@ class TeamsBot extends TeamsActivityHandler {
     }
     if (invokeValue.action.verb === "main") {
       const card = cardTools.AdaptiveCards.declare(rawMainCard).render();
+      await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
+      return { statusCode: 200 };
+    }
+    if (invokeValue.action.verb === "acronyms") {
+      const card = cardTools.AdaptiveCards.declare(rawExplainAcronym).render();
+      await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
+      return { statusCode: 200 };
+    }
+    if (invokeValue.action.verb === "explain") {
+      var toExplain = invokeValue.action.data.acAcronym
+      var explained = await axios.get(`http://bot-backend-sesi.azurewebsites.net/shortcut/${toExplain}/`);
+      rawExplained.body[0].text = toExplain
+      rawExplained.body[1].text = explained.data
+      const card = cardTools.AdaptiveCards.declare(rawExplained).render();
       await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
       return { statusCode: 200 };
     }
