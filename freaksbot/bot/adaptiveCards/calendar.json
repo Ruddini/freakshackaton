@@ -10,21 +10,21 @@
         {
             "type": "TextBlock",
             "text": "Name and Surname:",
-            "wrap": true,
-            "id": "name_surname"
+            "wrap": true
         },
         {
             "type": "Input.Text",
-            "placeholder": "Name and Surname"
+            "placeholder": "Name and Surname",
+            "id": "name_surname"
         },
         {
             "type": "TextBlock",
             "text": "Time:",
-            "wrap": true,
-            "id" : "time"
+            "wrap": true
         },
         {
-            "type": "Input.Time"
+            "type": "Input.Time",
+            "id" : "time"
         }
     ],
     "actions": [

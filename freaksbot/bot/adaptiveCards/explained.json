@@ -11,6 +11,14 @@
             "type": "TextBlock",
             "text": "",
             "wrap": true,
+            "spacing": "Medium",
+            "size": "Large"
+
+        },
+        {
+            "type": "TextBlock",
+            "text": "",
+            "wrap": true,
             "spacing": "Medium"
         }
     ],

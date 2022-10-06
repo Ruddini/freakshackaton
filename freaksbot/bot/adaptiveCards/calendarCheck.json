@@ -10,7 +10,16 @@
         {
             "type": "TextBlock",
             "text": "",
-            "wrap": true
+            "wrap": true,
+            "spacing": "Medium"
+        }
+    ],
+    "actions": [
+        {
+            "type": "Action.Execute",
+            "title": "Return to menu",
+            "verb": "main",
+            "fallback": "Action.Submit"
         }
     ],
     "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",

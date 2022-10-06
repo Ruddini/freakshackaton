@@ -112,7 +112,7 @@ class TeamsBot extends TeamsActivityHandler {
       var name = invokeValue.action.data.name_surname;
       var time = invokeValue.action.data.time;
       var test = await axios.get(`http://bot-backend-sesi.azurewebsites.net/meeting/free_time/${name}/${time}`);  
-      rawMyCar.body[1].text=test.data[0];
+      calendarReturn.body[1].text=test.data;
       const card = cardTools.AdaptiveCards.declare(calendarReturn).render();
       await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
       return { statusCode: 200 };
@@ -130,8 +130,9 @@ class TeamsBot extends TeamsActivityHandler {
     else if (invokeValue.action.verb === "explain") {
       var toExplain = invokeValue.action.data.acAcronym
       var explained = await axios.get(`http://bot-backend-sesi.azurewebsites.net/shortcut/${toExplain}/`);
-      rawExplained.body[0].text = toExplain
-      rawExplained.body[1].text = explained.data
+      rawExplained.body[0].text = toExplain;
+      rawExplained.body[1].text = explained.data[0];
+      rawExplained.body[2].text = explained.data[1];
       const card = cardTools.AdaptiveCards.declare(rawExplained).render();
       await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
       return { statusCode: 200 };
