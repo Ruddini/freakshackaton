@@ -1,0 +1,38 @@
+{
+  "type": "AdaptiveCard",
+  "body": [
+    {
+      "type": "TextBlock",
+      "size": "Medium",
+      "weight": "Bolder",
+      "text": "Explaining acronyms"
+    },
+    {
+      "type": "Container",
+      "items": [
+          {
+              "type": "TextBlock",
+              "text": "Acronym",
+              "wrap": true,
+              "spacing": "Medium"
+          },
+          {
+              "type": "Input.Text",
+              "id": "acAcronym",
+              "placeholder": "Enter the abbreviation for the acronym"
+          }
+      ]
+  }
+
+  ],
+  "actions": [
+    {
+      "type": "Action.Execute",
+      "title": "Explain this",
+      "verb": "explain",
+      "fallback": "Action.Submit"
+    }
+  ],
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.4"
+}

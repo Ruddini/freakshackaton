@@ -5,46 +5,35 @@
       "type": "TextBlock",
       "size": "Large",
       "weight": "Bolder",
-      "text": "Your Virtual Assistant"
+      "text": "MyDesk reservation - Select date:"
     }
   ],
   "actions": [
     {
       "type": "Action.Execute",
-      "title": "MyCar",
-      "verb": "mycar",
+      "title": "Today",
+      "verb": "mydesk_location",
       "fallback": "Action.Submit"
     },
     {
       "type": "Action.Execute",
-      "title": "MyDesk",
-      "verb": "mydesk_date",
+      "title": "+1 Day",
+      "verb": "mydesk_location",
       "fallback": "Action.Submit"
     },
     {
       "type": "Action.Execute",
-      "title": "Explain acronyms",
-      "verb": "acronyms",
+      "title": "+2 Days",
+      "verb": "mydesk_location",
       "fallback": "Action.Submit"
     },
     {
       "type": "Action.Execute",
-      "title": "Check person status",
-      "verb": "personstatus",
-      "fallback": "Action.Submit"
-    },
-    {
-      "type": "Action.Execute",
-      "title": "Weather",
-      "verb": "weather",
-      "fallback": "Action.Submit"
-    },
-    {
-      "type": "Action.Execute",
-      "title": "Currency Rate",
-      "verb": "currency",
+      "title": "+3 Days",
+      "verb": "mydesk_location",
       "fallback": "Action.Submit"
     }
+
   ],
   "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
   "version": "1.4"
