@@ -6,7 +6,7 @@ const rawLearnCard = require("./adaptiveCards/learn.json");
 const cardTools = require("@microsoft/adaptivecards-tools");
 const rawMainCard = require("./adaptiveCards/main.json");
 const calendarCard = require("./adaptiveCards/calendar.json");
-const calendarCheck1 = require("./adaptiveCards/calendarCheck.json");
+const calendarReturn = require("./adaptiveCards/calendarCheck.json");
 const rawMyCar = require("./adaptiveCards/mycar.json");
 const rawSubmit = require("./adaptiveCards/submit.json");
 const rawMyDeskLoc = require("./adaptiveCards/mydesk_location.json");
@@ -108,12 +108,12 @@ class TeamsBot extends TeamsActivityHandler {
       await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
       return { statusCode: 200 };
     }
-    else if (invokeValue.action.verb === "caledarCheck") {
+    else if (invokeValue.action.verb === "calendarCheck") {
       var name = invokeValue.action.data.name_surname;
       var time = invokeValue.action.data.time;
       var test = await axios.get(`http://bot-backend-sesi.azurewebsites.net/meeting/free_time/${name}/${time}`);  
       rawMyCar.body[1].text=test.data[0];
-      const card = cardTools.AdaptiveCards.declare(calendarCheck1).render();
+      const card = cardTools.AdaptiveCards.declare(calendarReturn).render();
       await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
       return { statusCode: 200 };
     }

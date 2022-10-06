@@ -31,7 +31,8 @@
         {
             "type": "Action.Execute",
             "title": "Check",
-            "verb": "caledarCheck"
+            "verb": "calendarCheck",
+            "fallback": "Action.Submit"
         }
     ],
     "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
