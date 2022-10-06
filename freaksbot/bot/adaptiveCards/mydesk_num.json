@@ -5,23 +5,20 @@
       "type": "TextBlock",
       "size": "Large",
       "weight": "Bolder",
-      "text": "MyDesk reservation - Select desk:"
+      "text": "MyDesk reservation"
+    },
+    {
+      "type": "Input.Text",
+      "id": "acPlaceNumber",
+      "placeholder": "Select desk: [floor] [desk number]"
     }
   ],
-  "actions": [
-    {
-      "type": "Action.Execute",
-      "title": "Today",
-      "verb": "mydesk_location",
-      "fallback": "Action.Submit"
-    },
     {
       "type": "Action.Execute",
       "title": "Send Request",
-      "verb": "mydesk_location",
+      "verb": "submit",
       "fallback": "Action.Submit"
     }
-
   ],
   "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
   "version": "1.4"

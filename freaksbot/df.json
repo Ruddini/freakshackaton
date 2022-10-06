@@ -1,0 +1,80 @@
+ {
+ "type": "AdaptiveCard",
+ "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+ "version": "1.2",
+ "body": [
+  {
+   "text": "Adaptive Cards - Date Formatting Sample Card",
+   "type": "TextBlock",
+   "size": "Medium",
+   "weight": "Bolder"
+  },
+  {
+   "text": "Lets just use various date formats:",
+   "type": "TextBlock",
+   "separator": true,
+   "weight": "Bolder"
+  },
+  {
+   "facts": [
+    {
+     "title": "Date Only",
+     "value": "${formatDateTime(start, 'yyyy-MM-dd')}"
+    },
+    {
+     "title": "Time Only",
+     "value": "${formatDateTime(start, 'HH:mm')}"
+    },
+    {
+     "title": "Date and Time",
+     "value": "${formatDateTime(start, 'dd.MM.yyyy HH:mm')}"
+    },
+    {
+     "title": "Long Date",
+     "value": "${formatDateTime(start, 'dddd dd. MMMM yyyy')}"
+    },
+    {
+     "title": "Short Date",
+     "value": "${formatDateTime(start, 'MM MMMM y')}"
+    },
+    {
+     "title": "Short Date with Time",
+     "value": "${formatDateTime(start, 'dd.MM.yy - hh:mm')}"
+    },
+    {
+     "title": "With Timezone",
+     "value": "${formatDateTime(start, 'dd MMM yyyy hh:mm tt zz')}"
+    },
+    {
+     "title": "Time Of Day",
+     "value": "${getTimeOfDay('2018-03-15T08:00:00.000Z')}"
+    },
+    {
+     "title": "Duration",
+     "value": "${int(formatDateTime(end,'hh')) - int(formatDateTime(start,'hh'))} hour"
+    },
+    {
+     "title": "Duration",
+     "value": "${int(formatDateTime(start,'hh')) - int(formatDateTime(utcNow(),'hh'))} hours ago"
+    }
+   ],
+   "type": "FactSet"
+  },
+  {
+   "text": "Lets play with Dates",
+   "type": "TextBlock",
+   "separator": true,
+   "weight": "Bolder"
+  },
+  {
+   "text": "This is red if end is before start",
+   "type": "TextBlock",
+   "color": "${if(greater(start,end),'Warning','Good')}"
+  },
+  {
+   "text": "This is red if start +1 hour greater end",
+   "type": "TextBlock",
+   "color": "${if(greater(addHours(start,1),end),'Warning','Good')}"
+  }
+ ]
+}
