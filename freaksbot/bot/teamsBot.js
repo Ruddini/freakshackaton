@@ -5,6 +5,7 @@ const rawWelcomeCard = require("./adaptiveCards/welcome.json");
 const rawLearnCard = require("./adaptiveCards/learn.json");
 const cardTools = require("@microsoft/adaptivecards-tools");
 const rawMainCard = require("./adaptiveCards/main.json");
+const calendarCard = require("./adaptiveCards/calendar.json")
 
 
 class TeamsBot extends TeamsActivityHandler {

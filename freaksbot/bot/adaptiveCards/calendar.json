@@ -1,0 +1,36 @@
+{
+    "type": "AdaptiveCard",
+    "body": [
+        {
+            "type": "TextBlock",
+            "size": "Medium",
+            "weight": "Bolder",
+            "text": "Check person status"
+        },
+        {
+            "type": "TextBlock",
+            "text": "Name and Surname:",
+            "wrap": true
+        },
+        {
+            "type": "Input.Text",
+            "placeholder": "Name and Surname"
+        },
+        {
+            "type": "TextBlock",
+            "text": "Time:",
+            "wrap": true
+        },
+        {
+            "type": "Input.Time"
+        }
+    ],
+    "actions": [
+        {
+            "type": "Action.Execute",
+            "title": "Check"
+        }
+    ],
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "version": "1.4"
+}
