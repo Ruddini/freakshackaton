@@ -13,6 +13,7 @@
       "placeholder": "Select desk: [floor] [desk number]"
     }
   ],
+  "actions":[
     {
       "type": "Action.Execute",
       "title": "Send Request",

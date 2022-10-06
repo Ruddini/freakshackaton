@@ -30,7 +30,8 @@
     "actions": [
         {
             "type": "Action.Execute",
-            "title": "Check"
+            "title": "Check",
+            "verb": "caledarCheck"
         }
     ],
     "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",

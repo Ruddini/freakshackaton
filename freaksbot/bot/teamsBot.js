@@ -5,10 +5,11 @@ const rawWelcomeCard = require("./adaptiveCards/welcome.json");
 const rawLearnCard = require("./adaptiveCards/learn.json");
 const cardTools = require("@microsoft/adaptivecards-tools");
 const rawMainCard = require("./adaptiveCards/main.json");
-const calendarCard = require("./adaptiveCards/calendar.json")
+const calendarCard = require("./adaptiveCards/calendar.json");
+const calendarCheck1 = require("./adaptiveCards/calendarCheck.json");
 const rawMyCar = require("./adaptiveCards/mycar.json");
 const rawSubmit = require("./adaptiveCards/submit.json");
-const rawMyDeskLoc = require("./adaptiveCards/mydesk_loc.json");
+const rawMyDeskLoc = require("./adaptiveCards/mydesk_location.json");
 const rawMyDeskNo = require("./adaptiveCards/mydesk_num.json");
 const rawMyDeskDate = require("./adaptiveCards/mydesk_date.json");
 const rawExplainAcronym = require("./adaptiveCards/explainAcronym.json");
@@ -102,12 +103,17 @@ class TeamsBot extends TeamsActivityHandler {
       await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
       return { statusCode: 200 };
     }
-    else if (invokeValue.action.verb === "calenpersonstatus") {
+    else if (invokeValue.action.verb === "personstatus") {
+      const card = cardTools.AdaptiveCards.declare(calendarCard).render();
+      await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
+      return { statusCode: 200 };
+    }
+    else if (invokeValue.action.verb === "caledarCheck") {
       var name = invokeValue.action.data.name_surname;
       var time = invokeValue.action.data.time;
       var test = await axios.get(`http://bot-backend-sesi.azurewebsites.net/meeting/free_time/${name}/${time}`);  
-      console.info(test);
-      const card = cardTools.AdaptiveCards.declare(calendarCard).render();
+      rawMyCar.body[1].text=test.data[0];
+      const card = cardTools.AdaptiveCards.declare(calendarCheck1).render();
       await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
       return { statusCode: 200 };
     }
