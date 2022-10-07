@@ -41,7 +41,10 @@ class TeamsBot extends TeamsActivityHandler {
         case "?": {
           var mainCard;
           try{
-            var test = await axios.get("http://bot-backend-sesi.azurewebsites.net/mcar/");
+
+
+
+            var test = await axios.get("http://bot-backend-sesi.azurewebsites.net/mfdfscar/");
             console.log(test.statusCode);
             var mainCard = cardTools.AdaptiveCards.declareWithoutData(rawMainCard).render();
           }
