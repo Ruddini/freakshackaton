@@ -127,7 +127,7 @@ class TeamsBot extends TeamsActivityHandler {
     }
     else if (invokeValue.action.verb === "exchange") {
       var exchangeFrom = invokeValue.action.data.exchangeFrom;
-      var exchangeTo = invokeValue.action.data.exchangeFrom;
+      var exchangeTo = invokeValue.action.data.exchangeTo;
       var amount = invokeValue.action.data.exchangeAmount;
       var test = await axios.get(`http://bot-backend-sesi.azurewebsites.net/currency/{currency}/?currency1=${exchangeFrom}&currency2=${exchangeTo}&amount=${amount}`);  
       exchangeCheck.body[1].text=test.data['info']['rate'];
