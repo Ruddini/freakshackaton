@@ -16,6 +16,7 @@ const rawExplainAcronym = require("./adaptiveCards/explainAcronym.json");
 const rawExplained = require("./adaptiveCards/explained.json");
 const exchange = require("./adaptiveCards/exchange.json");
 const exchangeCheck = require("./adaptiveCards/exchangeCheck.json");
+const offlineCard = require("./adaptiveCards/offline.json");
 
 
 
@@ -38,9 +39,16 @@ class TeamsBot extends TeamsActivityHandler {
       // Trigger command by IM text
       switch (txt) {
         case "?": {
-          var test = await axios.get("http://bot-backend-sesi.azurewebsites.net/mycar/");
-          console.log(test.data);
-          const card = cardTools.AdaptiveCards.declareWithoutData(rawMainCard).render();
+          var mainCard;
+          try{
+            var test = await axios.get("http://bot-backend-sesi.azurewebsites.net/mcar/");
+            console.log(test.statusCode);
+            var mainCard = cardTools.AdaptiveCards.declareWithoutData(rawMainCard).render();
+          }
+          catch(err) {
+            var mainCard = cardTools.AdaptiveCards.declareWithoutData(offlineCard).render();
+          }
+          const card = mainCard;
           await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
           break;
         }
