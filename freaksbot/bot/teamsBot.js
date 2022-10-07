@@ -130,8 +130,8 @@ class TeamsBot extends TeamsActivityHandler {
       var exchangeTo = invokeValue.action.data.exchangeTo;
       var amount = invokeValue.action.data.exchangeAmount;
       var test = await axios.get(`http://bot-backend-sesi.azurewebsites.net/currency/{currency}/?currency1=${exchangeFrom}&currency2=${exchangeTo}&amount=${amount}`);  
-      exchangeCheck.body[1].text=test.data['info']['rate'];
-      exchangeCheck.body[3].text=test.data['result'];
+      exchangeCheck.body[1].text=`1 ${exchangeTo} = ${test.data['info']['rate']} ${exchangeFrom}`;
+      exchangeCheck.body[3].text= `${amount} ${exchangeTo} = ${test.data['result']} ${exchangeFrom}`;
       const card = cardTools.AdaptiveCards.declare(exchangeCheck).render();
       await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
       return { statusCode: 200 };
