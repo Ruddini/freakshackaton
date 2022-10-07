@@ -5,33 +5,33 @@
             "type": "TextBlock",
             "size": "Medium",
             "weight": "Bolder",
-            "text": ""
+            "text": "Check person status"
         },
         {
             "type": "TextBlock",
-            "text": "",
-            "wrap": true,
-            "spacing": "Medium",
-            "size": "Large"
-
+            "text": "Name and Surname:",
+            "wrap": true
+        },
+        {
+            "type": "Input.Text",
+            "placeholder": "Name and Surname",
+            "id": "name_surname"
         },
         {
             "type": "TextBlock",
-            "text": "",
-            "wrap": true,
-            "spacing": "Medium"
+            "text": "Time:",
+            "wrap": true
+        },
+        {
+            "type": "Input.Time",
+            "id" : "time"
         }
     ],
     "actions": [
         {
-            "type": "Action.OpenUrl",
-            "title": "Checkout in forge",
-            "url": ""
-        },
-        {
             "type": "Action.Execute",
-            "title": "Return to menu",
-            "verb": "main",
+            "title": "Check",
+            "verb": "calendarCheck",
             "fallback": "Action.Submit"
         }
     ],

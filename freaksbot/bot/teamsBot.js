@@ -5,6 +5,8 @@ const rawWelcomeCard = require("./adaptiveCards/welcome.json");
 const rawLearnCard = require("./adaptiveCards/learn.json");
 const cardTools = require("@microsoft/adaptivecards-tools");
 const rawMainCard = require("./adaptiveCards/main.json");
+const calendarCard = require("./adaptiveCards/calendar.json");
+const calendarReturn = require("./adaptiveCards/calendarCheck.json");
 const rawMyCar = require("./adaptiveCards/mycar.json");
 const rawSubmit = require("./adaptiveCards/submit.json");
 const rawMyDeskLoc = require("./adaptiveCards/mydesk_location.json");
@@ -12,6 +14,9 @@ const rawMyDeskNo = require("./adaptiveCards/mydesk_num.json");
 const rawMyDeskDate = require("./adaptiveCards/mydesk_date.json");
 const rawExplainAcronym = require("./adaptiveCards/explainAcronym.json");
 const rawExplained = require("./adaptiveCards/explained.json");
+const exchange = require("./adaptiveCards/exchange.json");
+const exchangeCheck = require("./adaptiveCards/exchangeCheck.json");
+
 
 
 class TeamsBot extends TeamsActivityHandler {
@@ -101,6 +106,36 @@ class TeamsBot extends TeamsActivityHandler {
       await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
       return { statusCode: 200 };
     }
+    else if (invokeValue.action.verb === "personstatus") {
+      const card = cardTools.AdaptiveCards.declare(calendarCard).render();
+      await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
+      return { statusCode: 200 };
+    }
+    else if (invokeValue.action.verb === "calendarCheck") {
+      var name = invokeValue.action.data.name_surname;
+      var time = invokeValue.action.data.time;
+      var test = await axios.get(`http://bot-backend-sesi.azurewebsites.net/meeting/free_time/${name}/${time}`);  
+      calendarReturn.body[1].text=test.data;
+      const card = cardTools.AdaptiveCards.declare(calendarReturn).render();
+      await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
+      return { statusCode: 200 };
+    }
+    else if (invokeValue.action.verb === "currency") {
+      const card = cardTools.AdaptiveCards.declare(exchange).render();
+      await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
+      return { statusCode: 200 };
+    }
+    else if (invokeValue.action.verb === "exchange") {
+      var exchangeFrom = invokeValue.action.data.exchangeFrom;
+      var exchangeTo = invokeValue.action.data.exchangeTo;
+      var amount = invokeValue.action.data.exchangeAmount;
+      var test = await axios.get(`http://bot-backend-sesi.azurewebsites.net/currency/{currency}/?currency1=${exchangeFrom}&currency2=${exchangeTo}&amount=${amount}`);  
+      exchangeCheck.body[1].text=`1 ${exchangeTo} = ${test.data['info']['rate']} ${exchangeFrom}`;
+      exchangeCheck.body[3].text= `${amount} ${exchangeTo} = ${test.data['result']} ${exchangeFrom}`;
+      const card = cardTools.AdaptiveCards.declare(exchangeCheck).render();
+      await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
+      return { statusCode: 200 };
+    }
     else if (invokeValue.action.verb === "mydesk_date") {
       const card = cardTools.AdaptiveCards.declare(rawMyDeskDate).render();
       await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
@@ -122,15 +157,15 @@ class TeamsBot extends TeamsActivityHandler {
       return { statusCode: 200 };
     }
     else if (invokeValue.action.verb === "explain") {
-      var toExplain = invokeValue.action.data.acAcronym
+      var toExplain = invokeValue.action.data.acAcronym;
       var explained = await axios.get(`http://bot-backend-sesi.azurewebsites.net/shortcut/${toExplain}/`);
-      rawExplained.body[0].text = toExplain
+      rawExplained.body[0].text = toExplain;
       if (explained.data[0] != null) {
-        rawExplained.body[1].text = explained.data[0]
-        rawExplained.actions[0].url = explained.data[1]
+        rawExplained.body[1].text = explained.data[0];
+        rawExplained.actions[0].url = explained.data[1];
       } else {
-        rawExplained.body[1].text = "Unfortunately we don't know this yet, we noted your request and will try to come up with an explanation for it :)"
-        rawExplained.actions[0].url = explained.data[1]
+        rawExplained.body[1].text = "Unfortunately we don't know this yet, we noted your request and will try to come up with an explanation for it :)";
+        rawExplained.actions[0].url = explained.data[1];
       }
       const card = cardTools.AdaptiveCards.declare(rawExplained).render();
       await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });

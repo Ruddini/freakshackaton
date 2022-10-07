@@ -5,15 +5,19 @@
             "type": "TextBlock",
             "size": "Medium",
             "weight": "Bolder",
-            "text": ""
+            "text": "Current rate:"
         },
         {
             "type": "TextBlock",
             "text": "",
             "wrap": true,
-            "spacing": "Medium",
-            "size": "Large"
-
+            "spacing": "Medium"
+        },
+        {
+            "type": "TextBlock",
+            "size": "Medium",
+            "weight": "Bolder",
+            "text": "Amount:"
         },
         {
             "type": "TextBlock",
@@ -23,11 +27,6 @@
         }
     ],
     "actions": [
-        {
-            "type": "Action.OpenUrl",
-            "title": "Checkout in forge",
-            "url": ""
-        },
         {
             "type": "Action.Execute",
             "title": "Return to menu",

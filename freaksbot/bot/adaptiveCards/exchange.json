@@ -1,0 +1,51 @@
+{
+    "type": "AdaptiveCard",
+    "body": [
+        {
+            "type": "TextBlock",
+            "size": "Large",
+            "weight": "Bolder",
+            "text": "What is the current exchange rate ?"
+        },
+        {
+            "type": "TextBlock",
+            "text": "From:",
+            "wrap": true
+        },
+        {
+            "type": "Input.Text",
+            "placeholder": "e.g. PLN",
+            "id": "exchangeFrom"
+        },
+        {
+            "type": "TextBlock",
+            "text": "To:",
+            "wrap": true
+        },
+        {
+            "type": "Input.Text",
+            "placeholder": "e.g. USD",
+            "id": "exchangeTo"
+        },
+        {
+            "type": "TextBlock",
+            "text": "Amount:",
+            "wrap": true
+        },
+        {
+            "type": "Input.Number",
+            "placeholder": "e.g. 100",
+            "id": "exchangeAmount"
+        }
+    ],
+    "actions": [
+        {
+            "type": "Action.Execute",
+            "title": "Exchange",
+            "verb": "exchange",
+            "fallback": "Action.Submit"
+        }
+    ],
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "version": "1.4"
+}
