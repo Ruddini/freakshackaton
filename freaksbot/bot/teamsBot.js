@@ -14,6 +14,9 @@ const rawMyDeskNo = require("./adaptiveCards/mydesk_num.json");
 const rawMyDeskDate = require("./adaptiveCards/mydesk_date.json");
 const rawExplainAcronym = require("./adaptiveCards/explainAcronym.json");
 const rawExplained = require("./adaptiveCards/explained.json");
+const exchange = require("./adaptiveCards/exchange.json");
+const exchangeCheck = require("./adaptiveCards/exchangeCheck.json");
+
 
 
 class TeamsBot extends TeamsActivityHandler {
@@ -117,6 +120,22 @@ class TeamsBot extends TeamsActivityHandler {
       await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
       return { statusCode: 200 };
     }
+    else if (invokeValue.action.verb === "currency") {
+      const card = cardTools.AdaptiveCards.declare(exchange).render();
+      await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
+      return { statusCode: 200 };
+    }
+    else if (invokeValue.action.verb === "exchange") {
+      var exchangeFrom = invokeValue.action.data.exchangeFrom;
+      var exchangeTo = invokeValue.action.data.exchangeFrom;
+      var amount = invokeValue.action.data.exchangeAmount;
+      var test = await axios.get(`http://bot-backend-sesi.azurewebsites.net/currency/{currency}/?currency1=${exchangeFrom}&currency2=${exchangeTo}&amount=${amount}`);  
+      exchangeCheck.body[1].text=test.data['info']['rate'];
+      exchangeCheck.body[3].text=test.data['result'];
+      const card = cardTools.AdaptiveCards.declare(exchangeCheck).render();
+      await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
+      return { statusCode: 200 };
+    }
     else if (invokeValue.action.verb === "mydesk_date") {
       const card = cardTools.AdaptiveCards.declare(rawMyDeskDate).render();
       await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
@@ -138,22 +157,16 @@ class TeamsBot extends TeamsActivityHandler {
       return { statusCode: 200 };
     }
     else if (invokeValue.action.verb === "explain") {
-      var toExplain = invokeValue.action.data.acAcronym
+      var toExplain = invokeValue.action.data.acAcronym;
       var explained = await axios.get(`http://bot-backend-sesi.azurewebsites.net/shortcut/${toExplain}/`);
-<<<<<<< HEAD
       rawExplained.body[0].text = toExplain;
-      rawExplained.body[1].text = explained.data[0];
-      rawExplained.body[2].text = explained.data[1];
-=======
-      rawExplained.body[0].text = toExplain
       if (explained.data[0] != null) {
-        rawExplained.body[1].text = explained.data[0]
-        rawExplained.actions[0].url = explained.data[1]
+        rawExplained.body[1].text = explained.data[0];
+        rawExplained.actions[0].url = explained.data[1];
       } else {
-        rawExplained.body[1].text = "Unfortunately we don't know this yet, we noted your request and will try to come up with an explanation for it :)"
-        rawExplained.actions[0].url = explained.data[1]
+        rawExplained.body[1].text = "Unfortunately we don't know this yet, we noted your request and will try to come up with an explanation for it :)";
+        rawExplained.actions[0].url = explained.data[1];
       }
->>>>>>> 264e0a74ca0839b506f6719703a761ee7eaf4142
       const card = cardTools.AdaptiveCards.declare(rawExplained).render();
       await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
       return { statusCode: 200 };
