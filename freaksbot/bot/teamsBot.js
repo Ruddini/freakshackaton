@@ -123,7 +123,17 @@ class TeamsBot extends TeamsActivityHandler {
       var name = invokeValue.action.data.name_surname;
       var time = invokeValue.action.data.time;
       var test = await axios.get(`http://bot-backend-sesi.azurewebsites.net/meeting/free_time/${name}/${time}`);  
-      calendarReturn.body[1].text=test.data;
+      var place = await axios.get(`http://bot-backend-sesi.azurewebsites.net/mydesk/${name}/`);  
+      if (test.data != null) {
+        calendarReturn.body[1].text=test.data;
+        if (place.data != null) {
+          calendarReturn.body[2].text=`Today ${name} sits on desk ${place.data} in Katowice Zbraska 19`;
+        } else{
+          calendarReturn.body[2].text=`Today ${name} works from home :)`;
+        }
+      } else {
+        calendarReturn.body[1].text=`Unfortunately, we do not know such a person as ${name}`;
+      }
       const card = cardTools.AdaptiveCards.declare(calendarReturn).render();
       await context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
       return { statusCode: 200 };

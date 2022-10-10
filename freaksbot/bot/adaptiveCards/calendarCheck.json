@@ -12,6 +12,12 @@
             "text": "",
             "wrap": true,
             "spacing": "Medium"
+        },
+        {
+            "type": "TextBlock",
+            "text": "",
+            "wrap": true,
+            "spacing": "Medium"
         }
     ],
     "actions": [
@@ -23,5 +29,5 @@
         }
     ],
     "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-    "version": "1.5"
+    "version": "1.4"
 }
